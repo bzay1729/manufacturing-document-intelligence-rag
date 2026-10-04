@@ -1,0 +1,25 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# Environment variables / secrets
+.env
+
+# Raw uploaded documents
+data/raw/*
+
+# Processed generated files
+data/processed/*
+
+# Generated vector indexes
+indexes/
+
+# Keep directories in Git
+!data/raw/.gitkeep
+!data/processed/.gitkeep
