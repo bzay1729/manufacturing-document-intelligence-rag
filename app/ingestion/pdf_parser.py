@@ -1,4 +1,5 @@
 from pathlib import Path
+from app.ingestion.json_writer import save_pages_to_json
 
 import pymupdf
 
@@ -63,3 +64,9 @@ if __name__ == "__main__":
 
         print("Preview of extracted text:")
         print(page["text"][:500])
+
+    # Save the extracted pages to a JSON file.
+    save_pages_to_json(
+        extracted_pages,
+        "data/processed/sample_manual.json",
+    )
