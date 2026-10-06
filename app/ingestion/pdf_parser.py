@@ -1,6 +1,6 @@
 from pathlib import Path
 from app.ingestion.json_writer import save_pages_to_json
-
+from app.ingestion.ocr_detection import needs_ocr
 import pymupdf
 
 
@@ -32,6 +32,7 @@ def extract_pdf_pages(pdf_path: str) -> list[dict]:
 
         for page_number, page in enumerate(document, start=1):
             text = page.get_text()
+            requires_ocr = needs_ocr(text)
 
             page_data = {
                 "file_name": path.name,
@@ -39,6 +40,7 @@ def extract_pdf_pages(pdf_path: str) -> list[dict]:
                 "total_pages": total_pages,
                 "character_count": len(text),
                 "extraction_method": "native",
+                "requires_ocr": requires_ocr,
                 "text": text,
             }
 
@@ -58,6 +60,7 @@ if __name__ == "__main__":
 
     for page in extracted_pages:
         print(f"\nPage: {page['page_number']}")
+        print(f"Requires OCR: {page['requires_ocr']}")
         print(f"Extraction method: {page['extraction_method']}")
         print(f"Characters extracted: {page['character_count']}")
         print("-" * 60)
